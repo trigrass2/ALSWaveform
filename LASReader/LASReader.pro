@@ -11,7 +11,18 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = LASReader
 TEMPLATE = app
 
-
+INCLUDEPATH +=$(LASTOOLS_DIR)\LASlib\include \
+            $(LASTOOLS_DIR)\LASzip\include
+LIBS += -L$(LASTOOLS_DIR)\LASlib\lib \
+            $(LASTOOLS_DIR)\LASzip\lib
+CONFIG(debug,debug|release)
+{
+    LIBS += -lLASlibD -lLASzipd
+}
+CONFIG(release,debug|release)
+{
+    LIBS += -lLASlib -lLASzip
+}
 SOURCES += main.cpp\
         lasreaderwindow.cpp
 
